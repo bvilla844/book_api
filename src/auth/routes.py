@@ -29,7 +29,6 @@ from .dependencies import (
     RoleCherker,
 )
 from datetime import datetime, timezone
-from src.db.redis import add_jti_to_blocklist
 from src.errors import UserAlreadyExists, InvalidCredentials, UserNotFound, InvalidToken
 from src.mail import mail, create_message
 from src.config import Config
@@ -193,7 +192,7 @@ async def get_current_user(
 @auth_router.get("/logout")
 async def revoke_token(token_detail: dict = Depends(AccessTokenBearer())):
     jti = token_detail["jti"]
-    await add_jti_to_blocklist(jti)
+    # await add_jti_to_blocklist(jti)
     return JSONResponse(
         content={"message": "logged out sucefully"}, status_code=status.HTTP_200_OK
     )

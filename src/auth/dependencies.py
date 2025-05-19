@@ -4,7 +4,6 @@ from fastapi.security.http import HTTPAuthorizationCredentials
 from fastapi.exceptions import HTTPException
 from jwt import ExpiredSignatureError, InvalidTokenError
 from .utils import decode_token
-from src.db.redis import token_in_blocklist
 from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from .service import UserService
@@ -41,8 +40,8 @@ class TokenBearer(HTTPBearer):
         except InvalidTokenError:
             raise InvalidToken()
 
-        if await token_in_blocklist(token_data["jti"]):
-            raise RevokedToken() or InvalidToken()
+        #if await token_in_blocklist(token_data["jti"]):
+            #raise RevokedToken() or InvalidToken()
         
         self.verify_token_data(token_data)
         return token_data

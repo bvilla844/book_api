@@ -28,7 +28,6 @@ app = FastAPI(
     title="Bookly",
     description="AREST API for a book review wev service",
     version=version,
-    lifespan=life_span,
 )
 
 register_all_errors(app)

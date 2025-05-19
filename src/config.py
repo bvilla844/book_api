@@ -4,7 +4,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     JWT_SECRET: str
     JWT_ALGORITHM: str
-    REDIS_URL: str="rediss://red-d0lopv0dl3ps73fqb1o0:2SVNwR97UlunhMIvwAtkbWbDJzd8GCN5@oregon-keyvalue.render.com:6379?ssl_cert_reqs=CERT_NONE"
+#REDIS_URL: str="rediss://red-d0lopv0dl3ps73fqb1o0:2SVNwR97UlunhMIvwAtkbWbDJzd8GCN5@oregon-keyvalue.render.com:6379?ssl_cert_reqs=CERT_NONE"
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
     MAIL_FROM: str
@@ -21,6 +21,6 @@ class Settings(BaseSettings):
 
 Config = Settings()
 
-broker_url = Config.REDIS_URL
-result_backend = Config.REDIS_URL
-broker_connection_retry_on_startup= True
+#broker_url = Config.REDIS_URL
+#result_backend = Config.REDIS_URL
+#broker_connection_retry_on_startup= True

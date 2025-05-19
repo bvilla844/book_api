@@ -44,19 +44,19 @@ role_checker = RoleCherker(["admin", "user"])
 
 
 @auth_router.post("/send_mail")
-async def send_mail(emails: EmailModel):
+async def send_mail(emails: EmailModel, background_tasks: BackgroundTasks,):
     emails= emails.addresses
 
     html = "<h1>Welcome to the app</h1>"
     subject = "Welcome to our app"
-    send_email.delay(emails,subject,html)
+    background_tasks.add_task(send_email, emails, subject, html)
 
     return {"message":"email sent sucessfully"}
 
 
 @auth_router.post("/signup", status_code=status.HTTP_201_CREATED)
 async def create_user_account(
-    user_data: UserCreateModel, session: AsyncSession = Depends(get_session)
+    user_data: UserCreateModel,background_tasks: BackgroundTasks, session: AsyncSession = Depends(get_session)
 ):
     email = user_data.email
 
@@ -77,7 +77,7 @@ async def create_user_account(
     emails = [email]
     subject= "Verify Your email"
 
-    send_email.delay(emails,subject,html)
+    background_tasks.add_task(send_email, emails, subject, html)
 
     return {
         "message": "Account Created! Check email to verify your account",
@@ -116,7 +116,7 @@ async def verify_user_account(token: str, session: AsyncSession = Depends(get_se
 
 @auth_router.post("/login")
 async def login_user(
-    login_data: UserLoginModel, session: AsyncSession = Depends(get_session)
+    login_data: UserLoginModel,background_tasks: BackgroundTasks, session: AsyncSession = Depends(get_session)
 ):
     email = login_data.email
     password = login_data.password
@@ -131,7 +131,10 @@ async def login_user(
             <h1>Verify your Email</h1>
             <p>Please click this <a href="{link}">link</a> to verify your email.</p>
             """
-            send_email.delay([email], "Verify Your Email", html)
+            emails = [email]
+            subject = "Verify Your Email"
+
+            background_tasks.add_task(send_email, emails, subject, html)
 
             return JSONResponse(
                 content={

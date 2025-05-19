@@ -28,13 +28,15 @@ app = FastAPI(
 register_all_errors(app)
 register_middleware(app)
 
-app.include_router(book_router, prefix=f"/api/{version}/books", tags=["books"])
-app.include_router(auth_router, prefix=f"/api/{version}/auth", tags=["auth"])
-app.include_router(review_router, prefix=f"/api/{version}/reviews", tags=["reviews"])
-
 print("🧭 Diagnostic info (Render environment)")
 print("📂 Current working directory:", os.getcwd())
 print("📄 __file__:", __file__)
 print("📂 BASE_DIR:", Path(__file__).resolve().parent)
 print("📂 TEMPLATE_FOLDER:", Path(__file__).resolve().parent / "templates")
 print("📁 TEMPLATE_FOLDER exists:", (Path(__file__).resolve().parent / "templates").exists())
+
+app.include_router(book_router, prefix=f"/api/{version}/books", tags=["books"])
+app.include_router(auth_router, prefix=f"/api/{version}/auth", tags=["auth"])
+app.include_router(review_router, prefix=f"/api/{version}/reviews", tags=["reviews"])
+
+

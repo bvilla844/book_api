@@ -2,8 +2,8 @@ from fastapi_mail import FastMail, ConnectionConfig, MessageSchema, MessageType
 from src.config import Config
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent 
-TEMPLATE_FOLDER = BASE_DIR / "templates"  
+PROJECT_ROOT = Path(__file__).resolve().parents[1]  # /opt/render/project/src
+TEMPLATE_FOLDER = PROJECT_ROOT / "src" / "templates"
 
 mail_config = ConnectionConfig(
     MAIL_USERNAME = Config.MAIL_USERNAME,

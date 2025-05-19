@@ -4,7 +4,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     JWT_SECRET: str
     JWT_ALGORITHM: str
-    REDIS_URL : str 
+      REDIS_URL: str="rediss://red-d0lopv0dl3ps73fqb1o0:2SVNwR97UlunhMIvwAtkbWbDJzd8GCN5@oregon-keyvalue.render.com:6379"
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
     MAIL_FROM: str
